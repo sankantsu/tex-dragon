@@ -1,0 +1,27 @@
+%\tracingmacros=2
+
+\newcount\dir
+
+\newdimen\lineLength
+\newdimen\lineWidth
+\newdimen\y
+
+\newbox\vLine
+\newbox\hLine
+
+\lineLength=5pt
+\lineWidth=0.3pt
+\setbox\vLine=\hbox{\vrule height\lineLength width\lineWidth}
+\setbox\hLine=\hbox{\vrule height\lineWidth width\lineLength}
+
+\def\goEast{\raise\y\copy\hLine \global\dir=0\relax}
+\def\goNorth{\raise\y\copy\vLine \kern-\lineWidth \global\advance\y\lineLength \global\dir=1\relax}
+\def\goWest{\kern-\lineLength \raise\y\copy\hLine \kern-\lineLength \global\dir=2\relax}
+\def\goSouth{\global\advance\y-\lineLength \raise\y\copy\vLine \kern-\lineWidth \global\dir=3\relax}
+
+\def\S{\ifcase\dir \goEast \or\goNorth \or\goWest \or\goSouth \fi} % move straight
+\def\B{\ifcase\dir \goWest \or\goSouth \or\goEast \or\goNorth \fi} % move back
+\def\L{\ifcase\dir \goNorth \or\goWest \or\goSouth \or\goEast \fi} % move left
+\def\R{\ifcase\dir \goSouth \or\goEast \or\goNorth \or\goWest \fi} % move right
+
+\def\path#1{\hbox{\dir=0\y=0pt#1}}

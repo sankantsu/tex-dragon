@@ -1,0 +1,9 @@
+\input draw
+
+\newcount\n
+\def\dragon{\ifnum\n>0{\advance\n-1 \dragon\L\nogard}\fi}
+\def\nogard{\ifnum\n>0{\advance\n-1 \dragon\R\nogard}\fi}
+
+\centerline{\path{\n=13 \dragon}}
+
+\end
